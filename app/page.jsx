@@ -16,6 +16,7 @@ function Home() {
       layout="vertical"
       onFinish={onFinish}
       style={{ maxWidth: 500, margin: '0 auto' }}
+      className="form-inputdata dark:invert"
     >
       <Form.Item
         label="Student Name"
