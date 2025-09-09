@@ -1,41 +1,74 @@
-import Image from "next/image";
+"use client";
+import React from 'react';
+import { Form, Input, Select, Button, message } from 'antd';
 
-export default function Home() {
+const { TextArea } = Input;
+const { Option } = Select;
+
+function Home() {
+  const onFinish = (values) => {
+    console.log('Submitted Data:', values);
+    message.success('Registration successful!');
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <Form
+      layout="vertical"
+      onFinish={onFinish}
+      style={{ maxWidth: 500, margin: '0 auto' }}
+    >
+      <Form.Item
+        label="Student Name"
+        name="studentName"
+        rules={[{ required: true, message: 'Please enter your name' }]}
+      >
+        <Input placeholder="Enter your name" />
+      </Form.Item>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-        </div>
-      </main>
-    </div>
+      <Form.Item
+        label="Grade"
+        name="grade"
+        rules={[{ required: true, message: 'Please select your grade' }]}
+      >
+        <Select placeholder="Select your grade">
+          <Option value="X">X</Option>
+          <Option value="XI">XI</Option>
+          <Option value="XII">XII</Option>
+        </Select>
+      </Form.Item>
+
+      <Form.Item
+        label="Extracurricular Activity"
+        name="activity"
+        rules={[{ required: true, message: 'Please choose an activity' }]}
+      >
+        <Select placeholder="Choose an activity">
+          <Option value="Basketball">Basketball</Option>
+          <Option value="Futsal">Futsal</Option>
+          <Option value="Music">Music</Option>
+          <Option value="Flag Raising Team">Flag Raising Team</Option>
+        </Select>
+      </Form.Item>
+
+      <Form.Item
+        label="Reason for Joining"
+        name="reason"
+        rules={[
+          { required: true, message: 'Please provide a reason' },
+          { min: 10, message: 'Reason must be at least 10 characters' },
+        ]}
+      >
+        <TextArea rows={4} placeholder="Tell us why you want to join" />
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Register
+        </Button>
+      </Form.Item>
+    </Form>
   );
 }
+
+export default Home;
+
